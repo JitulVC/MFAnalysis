@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Mutual Fund Performance {% endblock %}</h1>
+    <form action="{{ url_for('mfanalysis') }}" method="POST">
+        <div class="row justify-content-md-center mb-3">
+            <div class="col">
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3 mb-md-0">
+                    <input class="form-control" name="crisilrankf" type="text" placeholder="CRISIL Rank" value="{{qstr.crisilrankf}}"/>
+                    <label class="small" for="inputCrisilRankFrom">Rank &gt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating mb-3 mb-md-0">
+                    <input class="form-control" name="crisilrankt" type="text" placeholder="Enter CRISIL <" value="{{qstr.crisilrankt}}"/>
+                    <label class="small" for="inputCrisilRankTo">Rank &lt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="ytdreturnf" type="text" placeholder="Enter YTD%" value="{{qstr.ytdreturnf}}"/>
+                    <label class="small" for="inputYTDFrom">YTD% &gt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="ytdreturnt" type="text" placeholder="Enter YTD%" value="{{qstr.ytdreturnt}}"/>
+                    <label class="small" for="inputYTDTo">YTD% &lt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="oneyreturnf" type="text" placeholder="Enter 1Y%" value="{{qstr.oneyreturnf}}"/>
+                    <label class="small" for="inputOneYReturnFrom">1Y% &gt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="oneyreturnt" type="text" placeholder="Enter 1Y%" value="{{qstr.oneyreturnt}}"/>
+                    <label class="small" for="inputOneYReturnTo">1Y% &lt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="twoyreturnf" type="text" placeholder="Enter 2Y%" value="{{qstr.twoyreturnf}}"/>
+                    <label class="small" for="inputTwoYReturnFrom">2Y% &gt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="twoyreturnt" type="text" placeholder="Enter 2Y%" value="{{qstr.twoyreturnt}}"/>
+                    <label class="small" for="inputTwoYReturnTo">2Y% &lt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="threeyreturnf" type="text" placeholder="Enter 3Y%" value="{{qstr.threeyreturnf}}"/>
+                    <label class="small" for="inputThreeYReturnFrom">3Y% &gt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="threeyreturnt" type="text" placeholder="Enter 3Y%" value="{{qstr.threeyreturnt}}"/>
+                    <label class="small" for="inputThreeYReturnTo">3Y% &lt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="fiveyreturnf" type="text" placeholder="Enter 5Y%" value="{{qstr.fiveyreturnf}}"/>
+                    <label class="small" for="inputFiveYReturnFrom">5Y% &gt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating">
+                    <input class="form-control" name="fiveyreturnt" type="text" placeholder="Enter 5Y%" value="{{qstr.fiveyreturnt}}"/>
+                    <label class="small" for="inputFiveYReturnTo">5Y% &lt;</label>
+                </div>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-filter"></span> Filter 
+                </button>
+                <!--
+                <a href="{{ url_for('mfanalysis') }}" rel="filter" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-filter"></span> Filter 
+                </a>
+                -->      
+            </div>
+        </div>
+    </form>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Mutual Fund Performance Analysis
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Scheme Name</th>
+                        <th>CRISIL Ranking</th>
+                        <th>YTD %</th>
+                        <th>1Y %</th>
+                        <th>2Y %</th>
+                        <th>3Y %</th>
+                        <th>5Y %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mfp in mfperformance %}
+                    <tr border="1">
+                        <td>{{mfp['Scheme Name']}}</td>
+                        <td>{{mfp['Crisil Rank']}}</td>
+                        <td>{{mfp['YTD']}}</td>
+                        <td>{{mfp['1Y']}}</td>
+                        <td>{{mfp['2Y']}}</td>
+                        <td>{{mfp['3Y']}}</td>
+                        <td>{{mfp['5Y']}}</td>
+                    </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
